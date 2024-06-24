@@ -23,16 +23,23 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # device = "cpu"
 
-tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", progress_bar=True).to(device)
+# tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", progress_bar=True).to(device)
 # tts = TTS(model_name="tts_models/de/thorsten/tacotron2-DDC", progress_bar=True).to(device)
+tts = TTS("tts_models/en/fairseq/vits")
 
 def clone(text, audio):
-    tts.tts_to_file(text=text, 
-                    speaker_wav=audio, 
-                    language="en", 
-                    file_path="./output.wav")
-    return "./output.wav"
+    # tts.tts_to_file(text=text, 
+    #                 speaker_wav=audio, 
+    #                 language="en", 
+    #                 file_path="./output.wav")
+    # return "./output.wav"
+    tts.tts_with_vc_to_file(
+        text,
+        speaker_wav=audio,
+        file_path="./output.wav"
+    )
 
+    return "./output.wav"
 
 
 demo = gr.Interface(fn=clone, 
