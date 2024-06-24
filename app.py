@@ -23,15 +23,31 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # device = "cpu"
 
-tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+# tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
+tts = TTS("tts_models/deu/fairseq/vits").to(device)
 
 # @spaces.GPU(enable_queue=True)
 def clone(text, audio):
-    tts.tts_to_file(text=text, speaker_wav=audio, language="en", file_path="./output.wav")
+    # tts.tts_to_file(text=text, 
+    #                 speaker_wav=audio, 
+    #                 language="en", 
+    #                 file_path="./output.wav")
+    # return "./output.wav"
+
+    api = TTS("tts_models/en/ljspeech/vits")
+    api.tts_with_vc_to_file(
+        text,
+        speaker_wav=audio,
+        language="en",
+        file_path="./output.wav"
+    )
     return "./output.wav"
 
+
+
 demo = gr.Interface(fn=clone, 
-                     inputs=[gr.Textbox(label='Text'),gr.Audio(type='filepath', label='Voice reference audio file')], 
+                     inputs=[gr.Textbox(label='Text'),
+                             gr.Audio(type='filepath', label='Voice reference audio file')], 
                      outputs=gr.Audio(type='filepath'),
                      title='Voice Clone',
                      description="""
@@ -39,7 +55,7 @@ demo = gr.Interface(fn=clone,
                      
                      Please ❤️ this Space. I build custom AI apps for companies. <a href="mailto: tony.assi.media@gmail.com">Email me</a> for business inquiries.
                      """,
-                     theme = gr.themes.Base(primary_hue="teal",secondary_hue="teal",neutral_hue="slate"),
+                     theme = gr.themes.Base(primary_hue="teal", secondary_hue="teal", neutral_hue="slate"),
                      examples=[["Hey! It's me Dorthy, from the Wizard of Oz. Type in whatever you'd like me to say.","./audio/Wizard-of-Oz-Dorthy.wav"],
                                ["It's me Vito Corleone, from the Godfather. Type in whatever you'd like me to say.","./audio/Godfather.wav"],
                                ["Hey, it's me Paris Hilton. Type in whatever you'd like me to say.","./audio/Paris-Hilton.mp3"],
