@@ -6,3 +6,4 @@ gradio
 socksio
 pysocks
 spaces
+espeakng
