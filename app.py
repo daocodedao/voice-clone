@@ -24,7 +24,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # device = "cpu"
 
 # tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
-tts = TTS("tts_models/deu/fairseq/vits").to(device)
+tts = TTS("tts_models/en/ljspeech/vits").to(device)
 
 # @spaces.GPU(enable_queue=True)
 def clone(text, audio):
