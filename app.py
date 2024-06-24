@@ -7,28 +7,28 @@ import platform
 
 os.environ["COQUI_TOS_AGREED"] = "1"
 
-# def getProxy():
-#     if platform.system() == "Linux":
-#         return "192.168.0.77:18808"
-#     else:
-#         return "127.0.0.1:10809"
+def getProxy():
+    if platform.system() == "Linux":
+        return "192.168.0.77:18808"
+    else:
+        return "127.0.0.1:10809"
 
 
-# os.environ['HTTP_PROXY'] = getProxy()
-# os.environ['HTTPS_PROXY'] = getProxy()
+os.environ['HTTP_PROXY'] = getProxy()
+os.environ['HTTPS_PROXY'] = getProxy()
 
 
-# device = "cuda"
-device = "cpu"
+device = "cuda"
+# device = "cpu"
 
 tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 
-# @spaces.GPU(enable_queue=True)
+@spaces.GPU(enable_queue=True)
 def clone(text, audio):
     tts.tts_to_file(text=text, speaker_wav=audio, language="en", file_path="./output.wav")
     return "./output.wav"
 
-iface = gr.Interface(fn=clone, 
+demo = gr.Interface(fn=clone, 
                      inputs=[gr.Textbox(label='Text'),gr.Audio(type='filepath', label='Voice reference audio file')], 
                      outputs=gr.Audio(type='filepath'),
                      title='Voice Clone',
@@ -44,4 +44,6 @@ iface = gr.Interface(fn=clone,
                                ["Hey, it's me Megan Fox from Transformers. Type in whatever you'd like me to say.","./audio/Megan-Fox.mp3"],
                                ["Hey there, it's me Jeff Goldblum. Type in whatever you'd like me to say.","./audio/Jeff-Goldblum.mp3"],
                                ["Hey there, it's me Jeff Goldblum. Type in whatever you'd like me to say.","./audio/jasper.wav"],])
-iface.launch()
+# demo.launch()
+
+demo.launch(share=True, server_port=9651, ssl_verify=False, debug=True, show_error=True)
