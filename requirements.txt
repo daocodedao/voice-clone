@@ -5,3 +5,4 @@ torch
 gradio
 socksio
 pysocks
+spaces

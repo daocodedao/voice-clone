@@ -18,12 +18,14 @@ os.environ['HTTP_PROXY'] = getProxy()
 os.environ['HTTPS_PROXY'] = getProxy()
 
 
-device = "cuda"
+# device = "cuda"
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
 # device = "cpu"
 
 tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2").to(device)
 
-@spaces.GPU(enable_queue=True)
+# @spaces.GPU(enable_queue=True)
 def clone(text, audio):
     tts.tts_to_file(text=text, speaker_wav=audio, language="en", file_path="./output.wav")
     return "./output.wav"
