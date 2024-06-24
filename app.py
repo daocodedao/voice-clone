@@ -54,4 +54,4 @@ demo = gr.Interface(fn=clone,
                                ["Hey there, it's me Jeff Goldblum. Type in whatever you'd like me to say.","./audio/jasper.wav"],])
 # demo.launch()
 
-demo.launch(share=False, server_port=9651, ssl_verify=False, debug=True, show_error=True)
+demo.launch(share=True, server_port=9651, ssl_verify=False, debug=True, show_error=True)

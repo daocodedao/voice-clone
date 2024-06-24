@@ -7,3 +7,5 @@ socksio
 pysocks
 spaces
 espeakng
+# sudo apt install espeak 
+# pip install espeakng
