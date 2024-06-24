@@ -34,8 +34,8 @@ def clone(text, audio):
     #                 file_path="./output.wav")
     # return "./output.wav"
 
-    api = TTS("tts_models/en/ljspeech/vits")
-    api.tts_with_vc_to_file(
+    # api = TTS("tts_models/en/ljspeech/vits")
+    tts.tts_to_file(
         text,
         speaker_wav=audio,
         language="en",
