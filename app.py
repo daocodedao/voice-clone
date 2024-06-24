@@ -25,7 +25,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", progress_bar=True).to(device)
 # tts = TTS(model_name="tts_models/de/thorsten/tacotron2-DDC", progress_bar=True).to(device)
-tts = TTS("tts_models/en/fairseq/vits")
+tts = TTS("tts_models/en/ljspeech/vits")
 
 def clone(text, audio):
     # tts.tts_to_file(text=text, 
